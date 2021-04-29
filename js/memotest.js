@@ -34,7 +34,7 @@ class Memotest{
                 repetido.push(numeroCarta);
                 var div = document.createElement('div');
                 div.classList.add('carta');
-                div.innerHTML = `<h2>?</h2>`
+                div.innerHTML = `<h2>En construcción</h2>`
                 tablero.appendChild(div);
                 repartir++;
             }
