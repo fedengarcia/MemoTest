@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- BOOSTRAP -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    
+
+    <title>GamesSuit</title>
+</head>
+<body>
+    
+    <section class="mainTitle">
+        <h1>MEMOTEST</h1>
+    </section>
+
+    <section class="mainMenuContainer">
+        <div class="mainMenu">
+            <form>
+                <div class="form-group" id="grupoJugador">
+                    <label for="nombreJugador" id="nm">Nombre</label>
+                    <input type="text" class="form-control" id="nombreJugador" placeholder="Nombre" name="nombreJugador">
+                    <p id="errorJugador" >Ingrese un nombre para continuar</p>
+                </div>
+                <div class="form-group" id="grupoEmail">
+                    <label for="emailJugador">Email</label>
+                    <input type="email" class="form-control" id="emailJugador" placeholder="Correo Electronico" name="emailJugador">
+                    <p id="errorEmail" >Ingrese un email para continuar</p>
+                </div>
+                <div class="form-group">
+                    <input type=button id="btnJugar" value="Jugar">
+                </div>
+            </form>
+        </div>
+    </section>
+    
+
+    <footer class="footer">
+        <p>Copyright <span></span> 2021 - Federico García. All rights reserved</p>
+    </footer>
+
+    <script src="js/jugador.js"></script>
+    <script src="/js/index.js"></script>
+</body>
+</html>

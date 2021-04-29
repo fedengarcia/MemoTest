@@ -1,0 +1,105 @@
+.memoHeader1{
+    height: 50px;
+    width: 80%;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    margin: 20px 0px 10px 0px;
+
+    h1{
+        color: yellow;
+        opacity: 0.8;
+        font-size: 70px;
+    }
+
+}
+
+.memoHeader2{
+    height: 50px;
+    width: 80%;
+    display: flex;
+    justify-content:space-between;
+
+    h1{
+        font-size: 35px;
+    }
+
+    a:visited {
+        color: black;
+      }
+    a:hover {
+        color: yellow;
+        opacity: 0.8;
+    }
+}
+
+
+.memoTableContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 80%;
+    height: 600px;
+    background:linear-gradient(to bottom,rgb(92, 52, 204),rgb(131, 95, 231));
+    border: 2px white solid;
+    border-radius: 15px;
+    box-sizing: border-box;
+    overflow: hidden;
+    
+    .table{
+        display: grid;
+        grid-template-columns: 25% 25% 25% 25%;
+        grid-template-rows: 1/4;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        grid-gap: 1px;
+        background:linear-gradient(to bottom,rgb(92, 52, 204),rgb(131, 95, 231));
+       
+        .carta{
+            display: flex;
+            background-color: rosybrown;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+        }
+
+    }
+
+    .memoMenu{
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        width: 20%;
+        height: 20%;
+        border: 2px white solid;
+        border-radius: 15px;
+        background:linear-gradient(to bottom,rgb(92, 52, 204),rgb(131, 95, 231));
+        
+        
+        select{
+            margin-bottom: 20px;
+            width: 150px;
+            height: 30px;
+        }
+
+        input{
+            width: 150px;
+            height: 30px;
+            cursor: pointer;
+
+            &:hover{
+                cursor: pointer;
+                background-color: yellow;
+                opacity: 0.8;
+            }
+        }
+    }
+}
