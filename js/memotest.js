@@ -30,16 +30,33 @@ class Memotest{
                     count = count + 1;
                 }
             }
+
             if(count < 2){
                 repetido.push(numeroCarta);
-                var div = document.createElement('div');
-                div.classList.add('carta');
-                div.innerHTML = `<h2>En construcción</h2>`
-                tablero.appendChild(div);
-                repartir++;
+
+                var divCartaOriginal = document.createElement('div');
+                divCartaOriginal.classList.add('carta');
+                divCartaOriginal.addEventListener('click',onclickFlipCard);
+                
+                var divSecretCard = document.createElement('div');
+                divSecretCard.classList.add('cartaSecreta');
+                divSecretCard.innerHTML = `<h2>?</h2>`;
+
+                if(cantidadCartas == 27){
+                    divCartaOriginal.innerHTML = `<img class="cartaDificil" src="../img/memo${numeroCarta}.png" alt="">`;
+                    divCartaOriginal.appendChild(divSecretCard);
+                    tablero.appendChild(divCartaOriginal);
+                    
+                    repartir++;
+                }else{
+                    divCartaOriginal.innerHTML = `<img src="../img/memo${numeroCarta}.png" alt="">`;
+                    divCartaOriginal.appendChild(divSecretCard);
+                    tablero.appendChild(divCartaOriginal);
+                    
+                    repartir++;
+                }
+                divCartaOriginal.childNodes[0].style.visibility=('hidden');
             }
-            
         }
     }
-
 }

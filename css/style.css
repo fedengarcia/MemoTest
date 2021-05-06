@@ -110,10 +110,13 @@ body a {
 .memoHeader2 h1 {
   font-size: 35px;
 }
-.memoHeader2 a:visited {
+.memoHeader2 #btnAtras {
+  cursor: pointer;
+}
+.memoHeader2 #btnAtras:visited {
   color: black;
 }
-.memoHeader2 a:hover {
+.memoHeader2 #btnAtras:hover {
   color: yellow;
   opacity: 0.8;
 }
@@ -141,15 +144,44 @@ body a {
   text-align: center;
   grid-gap: 1px;
   background: linear-gradient(to bottom, #5c34cc, #835fe7);
+  overflow: hidden;
 }
 .memoTableContainer .table .carta {
+  background: linear-gradient(to bottom, #5c34cc, #835fe7);
   display: flex;
-  background-color: rosybrown;
   cursor: pointer;
   width: 100%;
   height: 100%;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  box-sizing: content-box;
+}
+.memoTableContainer .table .carta img {
+  width: 100%;
+  height: 100%;
+}
+.memoTableContainer .table .carta .cartaDificil {
+  width: 60%;
+  height: 60%;
+}
+.memoTableContainer .table .carta:hover {
+  opacity: 1;
+}
+.memoTableContainer .table .carta:hover h2 {
+  color: yellow;
+}
+.memoTableContainer .table .cartaSecreta {
+  position: absolute;
+  width: 10%;
+  height: 10%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.memoTableContainer .table .cartaSecreta h2 {
+  font-size: 40px;
 }
 .memoTableContainer .memoMenu {
   position: absolute;
