@@ -4,23 +4,23 @@ class Memotest{
     }
 
     //Check de dificultad y reparto las cartas en el tablero dependiendo de la misma
-    armarTablero(){
+    buildTableGame(){
         if (this.dificultad == 'value1') {
-            this.repartirCartas(11,6);
+            this.dealCards(11,6);
         } else if (this.dificultad == 'value2') {
-            this.repartirCartas(19,10);
+            this.dealCards(19,10);
         }else if (this.dificultad == 'value3') {
-            this.repartirCartas(27,14);
+            this.dealCards(27,14);
         }
     }
 
     //Disparador de inicio de juego
-    iniciarJuego() {
-        this.armarTablero();
+    startGame() {
+        this.buildTableGame();
     }
 
     //Distribuyo las cartas en orden aleatorio
-    repartirCartas(cantidadCartas,randomNumber){
+    dealCards(cantidadCartas,randomNumber){
         var repetido = [];
         var repartir = 0
         var tablero = document.getElementById('tableConfig');
@@ -71,55 +71,55 @@ class Memotest{
 
     //Dar vuelta la carta
     onClickFlipCard(){
-        var guardarCarta =  (clave,valor) => localStorage.setItem(clave,valor);
-        var getCarta =  (clave) => localStorage.getItem(clave);
+        var saveCard =  (clave,valor) => localStorage.setItem(clave,valor);
+        var getCard =  (clave) => localStorage.getItem(clave);
 
-        if(getCarta('carta1') == '' && getCarta('carta2') == ''){
+        if(getCard('carta1') == '' && getCard('carta2') == ''){
             //Doy vuelta la carta y la guardo
-            guardarCarta('carta1',this.id);
-            mostrarCarta(this);
-        }else if ((getCarta('carta1') != '') && getCarta('carta2') == '') {
-            if(this.id != getCarta('carta1')){
+            saveCard('carta1',this.id);
+            showCard(this);
+        }else if ((getCard('carta1') != '') && getCard('carta2') == '') {
+            if(this.id != getCard('carta1')){
                 //Si la carta elegida es distinta la doy vuelta
-                guardarCarta('carta2',this.id);
-                mostrarCarta(this);
+                saveCard('carta2',this.id);
+                showCard(this);
             }else{
                 if(this.childNodes[0].style.visibility == 'visible') {
                     //La vuelvo a dar vuelta
-                    guardarCarta('carta1','');
-                    ocultarCarta(this)
+                    saveCard('carta1','');
+                    hideCard(this)
                 }else{
-                    guardarCarta('carta2',this.id);
-                    mostrarCarta(this)
+                    saveCard('carta2',this.id);
+                    showCard(this)
                 }
             }
             
-        }else if (getCarta('carta1') == '' && getCarta('carta2') != '') {
-            if(this.id !=  getCarta('carta2')){
+        }else if (getCard('carta1') == '' && getCard('carta2') != '') {
+            if(this.id !=  getCard('carta2')){
                 //Si la carta elegida es distinta la doy vuelta
-                guardarCarta('carta1',this.id);
-                mostrarCarta(this);
+                saveCard('carta1',this.id);
+                showCard(this);
             }else{
                 if(this.childNodes[0].style.visibility == 'visible') {
                     //La vuelvo a dar vuelta
-                    guardarCarta('carta2','');
-                    ocultarCarta(this)
+                    saveCard('carta2','');
+                    hideCard(this)
                 }else{
-                    guardarCarta('carta1',this.id);
-                    mostrarCarta(this)
+                    saveCard('carta1',this.id);
+                    showCard(this)
                 }
             }
-        }else if (getCarta('carta1') != '' && getCarta('carta2') != '') {
-            if(this.id == getCarta('carta1') && (this.childNodes[0].style.visibility == 'visible')){
-                guardarCarta('carta1','');
-                ocultarCarta(this);
-            }else if (this.id == getCarta('carta2') && (this.childNodes[0].style.visibility == 'visible')) {
-                guardarCarta('carta2','');
-                ocultarCarta(this);
+        }else if (getCard('carta1') != '' && getCard('carta2') != '') {
+            if(this.id == getCard('carta1') && (this.childNodes[0].style.visibility == 'visible')){
+                saveCard('carta1','');
+                hideCard(this);
+            }else if (this.id == getCard('carta2') && (this.childNodes[0].style.visibility == 'visible')) {
+                saveCard('carta2','');
+                hideCard(this);
             }
         }
 
-        function mostrarCarta(div){
+        function showCard(div){
             div.childNodes[0].style.visibility=('visible');
             div.childNodes[0].classList.add('animate__animated');
             div.childNodes[0].classList.add('animate__flipInY');
@@ -128,7 +128,7 @@ class Memotest{
             div.childNodes[1].classList.remove('animate__bounceIn');
         }
 
-        function ocultarCarta(div) {
+        function hideCard(div) {
             div.childNodes[0].style.visibility=('hidden');
             div.childNodes[0].classList.remove('animate__animated');
             div.childNodes[0].classList.remove('animate__flipInY');
@@ -140,5 +140,7 @@ class Memotest{
     }
 
     
+
+
 }
 

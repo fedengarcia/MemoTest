@@ -1,12 +1,12 @@
 localStorage.clear();
 
 const getJugador =  (clave) => sessionStorage.getItem(clave);
-const getViewAnterior =  (clave) => sessionStorage.getItem(clave);
-const guardarViewAnterior =  (clave,valor) => sessionStorage.setItem(clave,valor);
-const guardarCarta =  (clave,valor) => localStorage.setItem(clave,valor);
+const getLastView =  (clave) => sessionStorage.getItem(clave);
+const saveLastView =  (clave,valor) => sessionStorage.setItem(clave,valor);
+const saveCard =  (clave,valor) => localStorage.setItem(clave,valor);
 
-guardarCarta('carta1','');
-guardarCarta('carta2','');
+saveCard('carta1','');
+saveCard('carta2','');
 
 const jugadorActual = JSON.parse(getJugador('Player'));
 
@@ -30,7 +30,7 @@ tablero.style.visibility=('hidden');
 var memoMenu = document.getElementById('memoMenu');
 
 //Guardo la viewAnterior
-let viewAnterior = getViewAnterior('ventana');
+let viewAnterior = getLastView('ventana');
 let memotest = '';
 
 // const btnFlipCard = document.getElementById('btnFlipCard');
@@ -48,14 +48,15 @@ function onClickComenzar() {
         tablero.style.visibility=('visible');
         viewAnterior = 'memoMenu';
         memotest = new Memotest(dificultad);
-        memotest.iniciarJuego();
+        memotest.startGame();
    }
 }
 
 // FUNCIONALIDAD DEL BOTON PARA IR A LA VENTANA ANTERIOR - viewAnterior guarda la ventana anterior para saber donde se encuentra el usuario
 function onClickAtras() {
     var tablero = document.getElementById('tableConfig');
-
+    saveCard('carta1','');
+    saveCard('carta2','');
     if(viewAnterior == 'index.html'){
         removeAllChildNodes(tablero);
         location.href = viewAnterior;
