@@ -1,6 +1,12 @@
+localStorage.clear();
+
 const getJugador =  (clave) => sessionStorage.getItem(clave);
 const getViewAnterior =  (clave) => sessionStorage.getItem(clave);
 const guardarViewAnterior =  (clave,valor) => sessionStorage.setItem(clave,valor);
+const guardarCarta =  (clave,valor) => localStorage.setItem(clave,valor);
+
+guardarCarta('carta1','');
+guardarCarta('carta2','');
 
 const jugadorActual = JSON.parse(getJugador('Player'));
 

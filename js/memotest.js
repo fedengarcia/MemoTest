@@ -71,31 +71,74 @@ class Memotest{
 
     //Dar vuelta la carta
     onClickFlipCard(){
-        console.log(this.id);
-        if (this.childNodes[0].style.visibility == 'visible'){
-            this.childNodes[0].style.visibility=('hidden');
-            this.childNodes[1].style.visibility=('visible');
-            this.childNodes[0].classList.remove('animate__animated');
-            this.childNodes[0].classList.remove('animate__flipInY');
-            this.childNodes[1].classList.add('animate__animated');
-            this.childNodes[1].classList.add('animate__bounceIn');
-            
-        }else{
-            this.childNodes[0].classList.add('animate__animated');
-            this.childNodes[0].classList.add('animate__flipInY');
-            this.childNodes[0].style.visibility=('visible');
-            this.childNodes[1].style.visibility=('hidden');
-            this.childNodes[1].classList.remove('animate__animated');
-            this.childNodes[1].classList.remove('animate__bounceIn');
-            
-        }   
+        var guardarCarta =  (clave,valor) => localStorage.setItem(clave,valor);
+        var getCarta =  (clave) => localStorage.getItem(clave);
 
+        if(getCarta('carta1') == '' && getCarta('carta2') == ''){
+            //Doy vuelta la carta y la guardo
+            guardarCarta('carta1',this.id);
+            mostrarCarta(this);
+        }else if ((getCarta('carta1') != '') && getCarta('carta2') == '') {
+            if(this.id != getCarta('carta1')){
+                //Si la carta elegida es distinta la doy vuelta
+                guardarCarta('carta2',this.id);
+                mostrarCarta(this);
+            }else{
+                if(this.childNodes[0].style.visibility == 'visible') {
+                    //La vuelvo a dar vuelta
+                    guardarCarta('carta1','');
+                    ocultarCarta(this)
+                }else{
+                    guardarCarta('carta2',this.id);
+                    mostrarCarta(this)
+                }
+            }
+            
+        }else if (getCarta('carta1') == '' && getCarta('carta2') != '') {
+            if(this.id !=  getCarta('carta2')){
+                //Si la carta elegida es distinta la doy vuelta
+                guardarCarta('carta1',this.id);
+                mostrarCarta(this);
+            }else{
+                if(this.childNodes[0].style.visibility == 'visible') {
+                    //La vuelvo a dar vuelta
+                    guardarCarta('carta2','');
+                    ocultarCarta(this)
+                }else{
+                    guardarCarta('carta1',this.id);
+                    mostrarCarta(this)
+                }
+            }
+        }else if (getCarta('carta1') != '' && getCarta('carta2') != '') {
+            if(this.id == getCarta('carta1') && (this.childNodes[0].style.visibility == 'visible')){
+                guardarCarta('carta1','');
+                ocultarCarta(this);
+            }else if (this.id == getCarta('carta2') && (this.childNodes[0].style.visibility == 'visible')) {
+                guardarCarta('carta2','');
+                ocultarCarta(this);
+            }
+        }
 
+        function mostrarCarta(div){
+            div.childNodes[0].style.visibility=('visible');
+            div.childNodes[0].classList.add('animate__animated');
+            div.childNodes[0].classList.add('animate__flipInY');
+            div.childNodes[1].style.visibility=('hidden');
+            div.childNodes[1].classList.remove('animate__animated');
+            div.childNodes[1].classList.remove('animate__bounceIn');
+        }
+
+        function ocultarCarta(div) {
+            div.childNodes[0].style.visibility=('hidden');
+            div.childNodes[0].classList.remove('animate__animated');
+            div.childNodes[0].classList.remove('animate__flipInY');
+            div.childNodes[1].style.visibility=('visible');
+            div.childNodes[1].classList.add('animate__animated');
+            div.childNodes[1].classList.add('animate__bounceIn'); 
+        }
 
     }
 
-
-   
-
     
 }
+
