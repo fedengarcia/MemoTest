@@ -63,6 +63,7 @@
         justify-content: center;
         text-align: center;
         grid-gap: 1px;
+        // background-color: white;
         background:linear-gradient(to bottom,rgb(92, 52, 204),rgb(131, 95, 231));
         overflow: hidden;
        
@@ -77,6 +78,8 @@
             justify-content: center;
             overflow: hidden;
             box-sizing: content-box;
+            
+            
 
             img{
                 width: 100%;
@@ -110,8 +113,7 @@
             align-items: center;
         }
 
-        
-
+       
     }
 
     .memoMenu{
