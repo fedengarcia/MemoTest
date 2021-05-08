@@ -44,13 +44,14 @@
     justify-content: center;
     align-items: center;
 
-    width: 80%;
-    height: 600px;
+    width: 70%;
+    height: 650px;
     background:linear-gradient(to bottom,rgb(92, 52, 204),rgb(131, 95, 231));
     border: 2px white solid;
     border-radius: 15px;
     box-sizing: border-box;
     overflow: hidden;
+    margin-bottom: 100px;
     
     .table{
         display: grid;
