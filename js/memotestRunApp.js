@@ -4,9 +4,12 @@ const getJugador =  (clave) => sessionStorage.getItem(clave);
 const getLastView =  (clave) => sessionStorage.getItem(clave);
 const saveLastView =  (clave,valor) => sessionStorage.setItem(clave,valor);
 const saveCard =  (clave,valor) => localStorage.setItem(clave,valor);
+const getCard =  (clave) => localStorage.getItem(clave);
 
 saveCard('carta1','');
 saveCard('carta2','');
+
+$('.memoHeader1').append('<h1 class="headerMemoTitle">MEMOTEST</h1>');
 
 const jugadorActual = JSON.parse(getJugador('Player'));
 
@@ -32,8 +35,6 @@ var memoMenu = document.getElementById('memoMenu');
 //Guardo la viewAnterior
 let viewAnterior = getLastView('ventana');
 let memotest = '';
-
-// const btnFlipCard = document.getElementById('btnFlipCard');
 
 
 // FUNCIONALIDAD BOTON PARA COMENZAR A JUGAR - CHECK SI HAY DIFICULTAD ELEGIDA
