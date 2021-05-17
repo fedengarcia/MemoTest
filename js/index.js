@@ -1,5 +1,4 @@
 sessionStorage.clear();
-$('.mainTitle').append('<h1 class="headerMemoTitle">MEMOTEST</h1>');
 
 document.getElementById('errorJugador').style.visibility = "hidden";
 document.getElementById('errorEmail').style.visibility = "hidden";

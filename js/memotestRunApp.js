@@ -9,8 +9,6 @@ const getCard =  (clave) => localStorage.getItem(clave);
 saveCard('carta1','');
 saveCard('carta2','');
 
-$('.memoHeader1').append('<h1 class="headerMemoTitle">MEMOTEST</h1>');
-
 const jugadorActual = JSON.parse(getJugador('Player'));
 
 // GET del jugador ingresado y lo colocamos en la parte del Nombre

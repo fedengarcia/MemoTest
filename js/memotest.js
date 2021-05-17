@@ -127,22 +127,29 @@ class Memotest{
 
 
         function checkCard(card1,card2) {
-            setTimeout(() => {
-                console.log("ID-->", card1.id);
-                console.log("ID-->", card2.id);
-                if(card1.id == card2.id){
+            console.log("ID-->", card1.id);
+            console.log("ID-->", card2.id);
+            
+                
+                if(card1.id === card2.id){
                     console.log('Son iguales');
-                    saveCard('carta1','');
-                    saveCard('carta2','');
+                    setTimeout(() => {
+                        saveCard('carta1','');
+                        saveCard('carta2','');
+                    }, 1000);
                 }else{
                     console.log('Son distintas');
-                    hideCard(card1);
-                    hideCard(card2);
                     saveCard('carta1','');
                     saveCard('carta2','');
+                    setTimeout(() => {
+                        hideCard(card1);
+                        hideCard(card2);
+                    }, 1000);
+                    
+                   
                 }
                 
-            }, 1000);
+            
             
         }
 
