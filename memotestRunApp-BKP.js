@@ -3,9 +3,11 @@ localStorage.clear();
 const getJugador =  (clave) => sessionStorage.getItem(clave);
 const getLastView =  (clave) => sessionStorage.getItem(clave);
 const saveLastView =  (clave,valor) => sessionStorage.setItem(clave,valor);
-const saveCard =  (clave,valor) => cards[clave] = valor;
-const getCard =  (clave) => cards[clave];
+// const saveCard =  (clave,valor) => localStorage.setItem(clave,valor);
+// const getCard =  (clave) => localStorage.getItem(clave);
 
+saveCard('carta1','');
+saveCard('carta2','');
 
 const jugadorActual = JSON.parse(getJugador('Player'));
 
@@ -37,11 +39,6 @@ var cards = {
     'carta1':'',
     'carta2':''
 }
-var count = 0;
-
-saveCard('carta1','');
-saveCard('carta2','');
-
 
 // FUNCIONALIDAD BOTON PARA COMENZAR A JUGAR - CHECK SI HAY DIFICULTAD ELEGIDA
 function onClickComenzar() {
@@ -84,13 +81,17 @@ function removeAllChildNodes(parent) {
 }
 
 //Dar vuelta la carta
-//Dar vuelta la carta
 function onClickFlipCard(){
+    var saveCard =  (clave,valor) => localStorage.setItem(clave,valor);
+    var getCard =  (clave) => localStorage.getItem(clave);
 
     if(getCard('carta1') == '' && getCard('carta2') == ''){
+        //Doy vuelta la carta y la guardo
+        console.log('carta 1: ',this);
         saveCard('carta1',this.id);
         showCard(this);
     }else if ((getCard('carta1') != '') && getCard('carta2') == '') {
+        console.log('carta 2: ',this);
         if(this.id != getCard('carta1')){
             //Si la carta elegida es distinta la doy vuelta
             saveCard('carta2',this.id);
@@ -120,7 +121,15 @@ function onClickFlipCard(){
                 showCard(this)
             }
         }
-    }
+    }//else if (getCard('carta1') != '' && getCard('carta2') != '') {
+    //     if(this.id == getCard('carta1') && (this.childNodes[0].style.visibility == 'visible')){
+    //         saveCard('carta1','');
+    //         hideCard(this);
+    //     }else if (this.id == getCard('carta2') && (this.childNodes[0].style.visibility == 'visible')) {
+    //         saveCard('carta2','');
+    //         hideCard(this);
+    //     }
+    // }
 
     
     if ((getCard('carta1') && getCard('carta2')) != '') {

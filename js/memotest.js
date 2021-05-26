@@ -48,7 +48,7 @@ class Memotest{
                 // divSecretCard.innerHTML = `<h2>?</h2>`;
 
                 // CUANDO SE EJECUTA ESTE EVENTO ? - No es en el onclick
-                divCartaOriginal.addEventListener('click',this.onClickFlipCard);
+                divCartaOriginal.addEventListener('click',onClickFlipCard);
                 
 
                 if(cantidadCartas == 27){
@@ -69,111 +69,8 @@ class Memotest{
         }
     }
 
-    //Dar vuelta la carta
-    onClickFlipCard(){
-        var saveCard =  (clave,valor) => localStorage.setItem(clave,valor);
-        var getCard =  (clave) => localStorage.getItem(clave);
 
-        if(getCard('carta1') == '' && getCard('carta2') == ''){
-            //Doy vuelta la carta y la guardo
-            saveCard('carta1',this.id);
-            showCard(this);
-        }else if ((getCard('carta1') != '') && getCard('carta2') == '') {
-            if(this.id != getCard('carta1')){
-                //Si la carta elegida es distinta la doy vuelta
-                saveCard('carta2',this.id);
-                showCard(this);
-            }else{
-                if(this.childNodes[0].style.visibility == 'visible') {
-                    //La vuelvo a dar vuelta
-                    saveCard('carta1','');
-                    hideCard(this)
-                }else{
-                    saveCard('carta2',this.id);
-                    showCard(this)
-                }
-            }
-        }else if (getCard('carta1') == '' && getCard('carta2') != '') {
-            if(this.id !=  getCard('carta2')){
-                //Si la carta elegida es distinta la doy vuelta
-                saveCard('carta1',this.id);
-                showCard(this);
-            }else{
-                if(this.childNodes[0].style.visibility == 'visible') {
-                    //La vuelvo a dar vuelta
-                    saveCard('carta2','');
-                    hideCard(this)
-                }else{
-                    saveCard('carta1',this.id);
-                    showCard(this)
-                }
-            }
-        }//else if (getCard('carta1') != '' && getCard('carta2') != '') {
-        //     if(this.id == getCard('carta1') && (this.childNodes[0].style.visibility == 'visible')){
-        //         saveCard('carta1','');
-        //         hideCard(this);
-        //     }else if (this.id == getCard('carta2') && (this.childNodes[0].style.visibility == 'visible')) {
-        //         saveCard('carta2','');
-        //         hideCard(this);
-        //     }
-        // }
-
-        
-        if ((getCard('carta1') && getCard('carta2')) != '') {
-            var card1 = document.getElementById(getCard('carta1'));
-            var card2 = document.getElementById(getCard('carta2'));
-            checkCard(card1,card2);
-        }
-
-
-        function checkCard(card1,card2) {
-            console.log("ID-->", card1.id);
-            console.log("ID-->", card2.id);
-            
-                
-                if(card1.id === card2.id){
-                    console.log('Son iguales');
-                    setTimeout(() => {
-                        saveCard('carta1','');
-                        saveCard('carta2','');
-                    }, 1000);
-                }else{
-                    console.log('Son distintas');
-                    saveCard('carta1','');
-                    saveCard('carta2','');
-                    setTimeout(() => {
-                        hideCard(card1);
-                        hideCard(card2);
-                    }, 1000);
-                    
-                   
-                }
-                
-            
-            
-        }
-
-        function showCard(div){
-            div.childNodes[0].style.visibility=('visible');
-            div.childNodes[0].classList.add('animate__animated');
-            div.childNodes[0].classList.add('animate__flipInY');
-
-            div.childNodes[1].style.visibility=('hidden');
-            div.childNodes[1].classList.remove('animate__animated');
-            div.childNodes[1].classList.remove('animate__bounceIn');
-        }
-
-        function hideCard(div) {
-            div.childNodes[0].style.visibility=('hidden');
-            div.childNodes[0].classList.remove('animate__animated');
-            div.childNodes[0].classList.remove('animate__flipInY');
-            
-            div.childNodes[1].style.visibility=('visible');
-            div.childNodes[1].classList.add('animate__animated');
-            div.childNodes[1].classList.add('animate__bounceIn'); 
-        }
-        
-    }
+    
 
 
 }
