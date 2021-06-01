@@ -3,10 +3,8 @@ localStorage.clear();
 const getJugador =  (clave) => sessionStorage.getItem(clave);
 const getLastView =  (clave) => sessionStorage.getItem(clave);
 const saveLastView =  (clave,valor) => sessionStorage.setItem(clave,valor);
-const saveCard =  (clave,valor) => cards[clave] = valor;
-const getCard =  (clave) => cards[clave];
 
-
+const memotest = new Memotest();
 const jugadorActual = JSON.parse(getJugador('Player'));
 
 // GET del jugador ingresado y lo colocamos en la parte del Nombre
@@ -30,17 +28,6 @@ var memoMenu = document.getElementById('memoMenu');
 
 //Guardo la viewAnterior
 let viewAnterior = getLastView('ventana');
-let memotest = '';
-
-//CARTAS SELECCIONADAS
-var cards = {
-    'carta1':'',
-    'carta2':''
-}
-var count = 0;
-
-saveCard('carta1','');
-saveCard('carta2','');
 
 
 // FUNCIONALIDAD BOTON PARA COMENZAR A JUGAR - CHECK SI HAY DIFICULTAD ELEGIDA
@@ -54,16 +41,13 @@ function onClickComenzar() {
         memoMenu.style.visibility = "hidden";
         tablero.style.visibility=('visible');
         viewAnterior = 'memoMenu';
-        memotest = new Memotest(dificultad);
-        memotest.startGame();
+        memotest.startGame(dificultad);
    }
 }
 
 // FUNCIONALIDAD DEL BOTON PARA IR A LA VENTANA ANTERIOR - viewAnterior guarda la ventana anterior para saber donde se encuentra el usuario
 function onClickAtras() {
-    var tablero = document.getElementById('tableConfig');
-    saveCard('carta1','');
-    saveCard('carta2','');
+    
     if(viewAnterior == 'index.html'){
         removeAllChildNodes(tablero);
         location.href = viewAnterior;
@@ -83,94 +67,99 @@ function removeAllChildNodes(parent) {
     }
 }
 
-//Dar vuelta la carta
-//Dar vuelta la carta
+
 function onClickFlipCard(){
-
-    if(getCard('carta1') == '' && getCard('carta2') == ''){
-        saveCard('carta1',this.id);
-        showCard(this);
-    }else if ((getCard('carta1') != '') && getCard('carta2') == '') {
-        if(this.id != getCard('carta1')){
-            //Si la carta elegida es distinta la doy vuelta
-            saveCard('carta2',this.id);
-            showCard(this);
-        }else{
-            if(this.childNodes[0].style.visibility == 'visible') {
-                //La vuelvo a dar vuelta
-                saveCard('carta1','');
-                hideCard(this)
-            }else{
-                saveCard('carta2',this.id);
-                showCard(this)
-            }
-        }
-    }else if (getCard('carta1') == '' && getCard('carta2') != '') {
-        if(this.id !=  getCard('carta2')){
-            //Si la carta elegida es distinta la doy vuelta
-            saveCard('carta1',this.id);
-            showCard(this);
-        }else{
-            if(this.childNodes[0].style.visibility == 'visible') {
-                //La vuelvo a dar vuelta
-                saveCard('carta2','');
-                hideCard(this)
-            }else{
-                saveCard('carta1',this.id);
-                showCard(this)
-            }
-        }
-    }
-
     
-    if ((getCard('carta1') && getCard('carta2')) != '') {
-        var card1 = document.getElementById(getCard('carta1'));
-        var card2 = document.getElementById(getCard('carta2'));
-        checkCard(card1,card2);
-    }
+    if(memotest.valorMemoria.length < 2){
+        console.log(this.childNodes[0]);
+        if(memotest.valorMemoria.length == 0 && this.childNodes[0].style.visibility == 'hidden'){
+            console.log("carta1 Elegida: ",this.id);
+            memotest.valorMemoria.push(this.id);
+            showCard(this);
+        }else if (memotest.valorMemoria.length == 1 && this.childNodes[0].style.visibility == 'hidden') {
+            console.log("carta2 Elegida: ",this.id);
+            memotest.valorMemoria.push(this.id);
+            showCard(this);
+            // checkCard();
+            if(memotest.valorMemoria[0] == memotest.valorMemoria[1]){
+                console.log("Son iguales! muy bien!");
 
+                memotest.cartaEncontrada += 2;
+                memotest.valorMemoria = [];
 
-    function checkCard(card1,card2) {
+                if(memotest.cartaEncontrada == memotest.memoria.length){
+                    if(memotest.dificultad == 'value1'){
+                        alert("Terminaste el juego! Felicitaciones!, preparate para un nivel más dificil");
+                    }else if (memotest.dificultad == 'value2'){
+                        alert("Terminaste el juego! Felicitaciones!, preparate para el ultimo nivel");
+                    }else if (memotest.dificultad == 'value3'){
+                        alert("Terminaste el juego! Lo completaste en todas las dificultades. Vuelve a comenzar!");
+                    }
+
+                    if (memotest.dificultad != 'value3'){
+                        let dificultadActual = parseInt(memotest.dificultad[5]);
+                        let cambiarDificultad = dificultadActual + 1
+                        memotest.dificultad = 'value' + String(cambiarDificultad);
+                        removeAllChildNodes(tablero);
+                        memotest.buildTableGame();
+                    }else{
+                        memotest.dificultad = 'value1' ;
+                        removeAllChildNodes(tablero);
+                        memotest.buildTableGame();
+                    }
+                }
+            }else{
+                var card1 = document.getElementById(memotest.valorMemoria[0]);
+                var card2 = document.getElementById(memotest.valorMemoria[1]);
+                setTimeout(() => {
+                    hideCard(card1,card2);
+                }, 1000);
+                memotest.valorMemoria = [];
+            }
             
-            if(card1.id === card2.id){
-                console.log('Son iguales');
-                setTimeout(() => {
-                    saveCard('carta1','');
-                    saveCard('carta2','');
-                }, 1000);
-                //remover el onclickButton, agregar contador de pares de cartas encontrados
-            }else{
-                console.log('Son distintas');
-                setTimeout(() => {
-                    saveCard('carta1','');
-                    saveCard('carta2','');
-                    hideCard(card1);
-                    hideCard(card2);
-                }, 1000);
-                
-               
-            }
+        }
+    }
         
-    }
+}
 
-    function showCard(div){
-        div.childNodes[0].style.visibility=('visible');
-        div.childNodes[0].classList.add('animate__animated');
-        div.childNodes[0].classList.add('animate__flipInY');
+function showCard(div){
+            
+    div.childNodes[0].style.visibility=('visible');
+    div.childNodes[0].classList.add('animate__animated');
+    div.childNodes[0].classList.add('animate__flipInY');
 
-        div.childNodes[1].style.visibility=('hidden');
-        div.childNodes[1].classList.remove('animate__animated');
-        div.childNodes[1].classList.remove('animate__bounceIn');
-    }
+    div.childNodes[1].style.visibility=('hidden');
+    div.childNodes[1].classList.remove('animate__animated');
+    div.childNodes[1].classList.remove('animate__bounceIn');
+}
 
-    function hideCard(div) {
-        div.childNodes[0].style.visibility=('hidden');
-        div.childNodes[0].classList.remove('animate__animated');
-        div.childNodes[0].classList.remove('animate__flipInY');
-        
-        div.childNodes[1].style.visibility=('visible');
-        div.childNodes[1].classList.add('animate__animated');
-        div.childNodes[1].classList.add('animate__bounceIn'); 
-    }
+function hideCard(div1, div2) {
+    console.log("Esconder-> ", div1.id);
+    console.log("Esconder-> ", div2.id);
+
+    div1.childNodes[0].style.visibility=('hidden');
+    div1.childNodes[1].style.visibility=('visible');
+
+    div2.childNodes[0].style.visibility=('hidden');
+    div2.childNodes[1].style.visibility=('visible');
+
+    // div1.childNodes[1].style.visibility=('visible');
+
+    div1.childNodes[0].classList.remove('animate__animated');
+    div1.childNodes[0].classList.remove('animate__flipInY');
     
+    
+    div1.childNodes[1].classList.add('animate__animated');
+    div1.childNodes[1].classList.add('animate__bounceIn'); 
+
+   
+    // div2.childNodes[1].style.visibility=('visible');
+
+    div2.childNodes[0].classList.remove('animate__animated');
+    div2.childNodes[0].classList.remove('animate__flipInY');
+    
+    
+
+    // div2.childNodes[1].classList.add('animate__animated');
+    // div2.childNodes[1].classList.add('animate__bounceIn'); 
 }

@@ -1,6 +1,9 @@
 class Memotest{
-    constructor(dificultad){
-        this.dificultad = dificultad;
+    constructor(){
+        this.dificultad = '';
+        this.memoria = [];
+        this.valorMemoria = [];
+        this.cartaEncontrada = 0;
     }
 
     //Check de dificultad y reparto las cartas en el tablero dependiendo de la misma
@@ -15,7 +18,8 @@ class Memotest{
     }
 
     //Disparador de inicio de juego
-    startGame() {
+    startGame(dificultad) {
+        this.dificultad = dificultad;
         this.buildTableGame();
     }
 
@@ -47,7 +51,7 @@ class Memotest{
                 // divSecretCard.classList.add('cartaSecreta');
                 // divSecretCard.innerHTML = `<h2>?</h2>`;
 
-                // CUANDO SE EJECUTA ESTE EVENTO ? - No es en el onclick
+                // LE AGREGO EL EVENTO ONCLICK
                 divCartaOriginal.addEventListener('click',onClickFlipCard);
                 
 
@@ -62,14 +66,17 @@ class Memotest{
                     
                     repartir++;
                 }
-                
+                //Oculto la carta original
                 divCartaOriginal.childNodes[0].style.visibility=('hidden');
 
             }
         }
+        this.memoria = repetido;
+
     }
 
-
+    //Dar vuelta la carta
+    
     
 
 
