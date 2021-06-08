@@ -1,3 +1,4 @@
+
 localStorage.clear();
 
 const getJugador =  (clave) => sessionStorage.getItem(clave);
@@ -47,7 +48,7 @@ function onClickComenzar() {
 
 // FUNCIONALIDAD DEL BOTON PARA IR A LA VENTANA ANTERIOR - viewAnterior guarda la ventana anterior para saber donde se encuentra el usuario
 function onClickAtras() {
-    
+   
     if(viewAnterior == 'index.html'){
         removeAllChildNodes(tablero);
         location.href = viewAnterior;
@@ -69,15 +70,16 @@ function removeAllChildNodes(parent) {
 
 
 function onClickFlipCard(){
-    
+   
     if(memotest.valorMemoria.length < 2){
-        console.log(this.childNodes[0]);
+
         if(memotest.valorMemoria.length == 0 && this.childNodes[0].style.visibility == 'hidden'){
-            console.log("carta1 Elegida: ",this.id);
+            // console.log("carta1 Elegida: ",this.id);
             memotest.valorMemoria.push(this.id);
-            showCard(this);
+            showCard(this)
+
         }else if (memotest.valorMemoria.length == 1 && this.childNodes[0].style.visibility == 'hidden') {
-            console.log("carta2 Elegida: ",this.id);
+            // console.log("carta2 Elegida: ",this.id);
             memotest.valorMemoria.push(this.id);
             showCard(this);
             // checkCard();
@@ -111,55 +113,54 @@ function onClickFlipCard(){
             }else{
                 var card1 = document.getElementById(memotest.valorMemoria[0]);
                 var card2 = document.getElementById(memotest.valorMemoria[1]);
-                setTimeout(() => {
-                    hideCard(card1,card2);
-                }, 1000);
+                hideCard(card1);
+                hideCard(card2);
                 memotest.valorMemoria = [];
+
+                
             }
+
+
+            
+
             
         }
+        async function hideCard(div){
+            let promise = new Promise((resolve,reject) =>{
+                setTimeout(() => {
+                    div.childNodes[0].style.visibility=('hidden');
+                    div.childNodes[0].classList.remove('animate__animated');
+                    div.childNodes[0].classList.remove('animate__flipInY');
+                
+                    div.childNodes[1].style.visibility=('visible');
+                    div.childNodes[1].classList.add('animate__animated');
+                    div.childNodes[1].classList.add('animate__bounceIn');
+                }, 1000);
+                resolve("Escondida");
+            })
+            let result = await promise;
+            console.log(result);
+        }
     }
+
+    
+
+
+    async function showCard(div){
+        try{
+            div.childNodes[0].style.visibility=('visible');
+            div.childNodes[0].classList.add('animate__animated');
+            div.childNodes[0].classList.add('animate__flipInY');
         
+            div.childNodes[1].style.visibility=('hidden');
+            div.childNodes[1].classList.remove('animate__animated');
+            div.childNodes[1].classList.remove('animate__bounceIn');
+            return("Carta Elegida es: ", div.id);
+        }catch(error){
+            console.log(error);
+            throw error;
+        }
+       
+    }
 }
 
-function showCard(div){
-            
-    div.childNodes[0].style.visibility=('visible');
-    div.childNodes[0].classList.add('animate__animated');
-    div.childNodes[0].classList.add('animate__flipInY');
-
-    div.childNodes[1].style.visibility=('hidden');
-    div.childNodes[1].classList.remove('animate__animated');
-    div.childNodes[1].classList.remove('animate__bounceIn');
-}
-
-function hideCard(div1, div2) {
-    console.log("Esconder-> ", div1.id);
-    console.log("Esconder-> ", div2.id);
-
-    div1.childNodes[0].style.visibility=('hidden');
-    div1.childNodes[1].style.visibility=('visible');
-
-    div2.childNodes[0].style.visibility=('hidden');
-    div2.childNodes[1].style.visibility=('visible');
-
-    // div1.childNodes[1].style.visibility=('visible');
-
-    div1.childNodes[0].classList.remove('animate__animated');
-    div1.childNodes[0].classList.remove('animate__flipInY');
-    
-    
-    div1.childNodes[1].classList.add('animate__animated');
-    div1.childNodes[1].classList.add('animate__bounceIn'); 
-
-   
-    // div2.childNodes[1].style.visibility=('visible');
-
-    div2.childNodes[0].classList.remove('animate__animated');
-    div2.childNodes[0].classList.remove('animate__flipInY');
-    
-    
-
-    // div2.childNodes[1].classList.add('animate__animated');
-    // div2.childNodes[1].classList.add('animate__bounceIn'); 
-}
