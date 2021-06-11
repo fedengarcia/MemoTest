@@ -1,4 +1,3 @@
-
 localStorage.clear();
 
 const getJugador =  (clave) => sessionStorage.getItem(clave);
@@ -72,14 +71,13 @@ function removeAllChildNodes(parent) {
 function onClickFlipCard(){
    
     if(memotest.valorMemoria.length < 2){
-
+        console.log(this.childNodes[0]);
         if(memotest.valorMemoria.length == 0 && this.childNodes[0].style.visibility == 'hidden'){
-            // console.log("carta1 Elegida: ",this.id);
+            console.log("carta1 Elegida: ",this.id);
             memotest.valorMemoria.push(this.id);
-            showCard(this)
-
+            showCard(this);
         }else if (memotest.valorMemoria.length == 1 && this.childNodes[0].style.visibility == 'hidden') {
-            // console.log("carta2 Elegida: ",this.id);
+            console.log("carta2 Elegida: ",this.id);
             memotest.valorMemoria.push(this.id);
             showCard(this);
             // checkCard();
@@ -113,54 +111,39 @@ function onClickFlipCard(){
             }else{
                 var card1 = document.getElementById(memotest.valorMemoria[0]);
                 var card2 = document.getElementById(memotest.valorMemoria[1]);
-                hideCard(card1);
-                hideCard(card2);
-                memotest.valorMemoria = [];
-
-                
-            }
-
-
-            
-
-            
-        }
-        async function hideCard(div){
-            let promise = new Promise((resolve,reject) =>{
                 setTimeout(() => {
-                    div.childNodes[0].style.visibility=('hidden');
-                    div.childNodes[0].classList.remove('animate__animated');
-                    div.childNodes[0].classList.remove('animate__flipInY');
-                
-                    div.childNodes[1].style.visibility=('visible');
-                    div.childNodes[1].classList.add('animate__animated');
-                    div.childNodes[1].classList.add('animate__bounceIn');
+                    hideCard(card1);
+hideCard(card2);
                 }, 1000);
-                resolve("Escondida");
-            })
-            let result = await promise;
-            console.log(result);
+setTimeout(() => {
+                    memotest.valorMemoria = [];;
+                }, 1000);
+            }
+           
         }
     }
-
-    
-
-
-    async function showCard(div){
-        try{
-            div.childNodes[0].style.visibility=('visible');
-            div.childNodes[0].classList.add('animate__animated');
-            div.childNodes[0].classList.add('animate__flipInY');
-        
-            div.childNodes[1].style.visibility=('hidden');
-            div.childNodes[1].classList.remove('animate__animated');
-            div.childNodes[1].classList.remove('animate__bounceIn');
-            return("Carta Elegida es: ", div.id);
-        }catch(error){
-            console.log(error);
-            throw error;
-        }
        
-    }
 }
 
+function showCard(div){
+           
+    div.childNodes[0].style.visibility=('visible');
+    div.childNodes[0].classList.add('animate__animated');
+    div.childNodes[0].classList.add('animate__flipInY');
+
+    div.childNodes[1].style.visibility=('hidden');
+    div.childNodes[1].classList.remove('animate__animated');
+    div.childNodes[1].classList.remove('animate__bounceIn');
+}
+
+function hideCard(div) {
+    console.log("Esconder-> ", div.id);
+
+    div.childNodes[0].style.visibility=('hidden');
+div.childNodes[0].classList.remove('animate__animated');
+    div.childNodes[0].classList.remove('animate__flipInY');
+
+    div.childNodes[1].style.visibility=('visible');
+    div.childNodes[1].classList.add('animate__animated');
+    div.childNodes[1].classList.add('animate__bounceIn');
+}
